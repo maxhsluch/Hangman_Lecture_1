@@ -1,5 +1,3 @@
-# This is my try of Hangman via Git
-
 print("Welcome to Hangman!")
 
 class HangmanGame:
@@ -32,4 +30,28 @@ class HangmanGame:
         print(f"Word: {progress}")
 
 
+def play_hangman():
+    print("Willkommen zu Hangman!")
+    secret_word = input("Spieler 1, gib das geheime Wort ein (sichtbar!): ")
+    game = HangmanGame(secret_word)
 
+    print("\n" * 50)  # Simuliert "Bildschirm löschen", damit Spieler 2 das Wort nicht sofort sieht
+
+    while not game.is_game_over():
+        game.display_progress()
+        guess = input("Spieler 2, gib einen Buchstaben ein: ")
+        if len(guess) != 1 or not guess.isalpha():
+            print("Bitte gib genau einen Buchstaben ein.")
+            continue
+        game.guess_letter(guess)
+
+    print("\n--- Spiel beendet! ---")
+    if game.is_word_guessed():
+        print("🎉 Glückwunsch, du hast das Wort erraten!")
+    else:
+        print(f"😢 Leider verloren. Das Wort war: {game.word}")
+    game.display_progress()
+
+
+if __name__ == "__main__":
+    play_hangman()
